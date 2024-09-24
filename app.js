@@ -36,31 +36,42 @@
 
 // Taking data 
 
+var usersData = []
 
-document.getElementById("register").addEventListener("click",function(){
-    var name = document.getElementById("name")
-    var email = document.getElementById("email")
-    var password = document.getElementById("password")
+var registerBtn = document.getElementById("register")
+registerBtn && registerBtn.addEventListener("click",function(){
+    var rName = document.getElementById("registerName")
+    var rEmail = document.getElementById("registerEmail")
+    var rPassword = document.getElementById("registerPass")
+})
 
-    console.log(name.value,password.value,email.value);
+var userObj = {
+    name:rName.value,
+    email:rEmail.value,
+    password:rPassword.value
+}
+usersData.push(userObj)
 
 
-    var users=[];
-    var userObj = {
-    name: name.value,
-    email:email.value,
-    password:password.value
-    }
+rName.value = ""
+rEmail.value = ""
+rPassword.value = ""
+
+localStorage.setItem("users",JSON.stringify(usersData))
 
 
-    users.push(userObj)
-    console.log(userObj);
-    
+window.location.href = "login.html"
 
-    name.value =''
-    email.value =''
-    password.value =''
-    localStorage.clear()
-    localStorage.setItem("userData",JSON.stringify(users))
-    
+
+var loginBtn = document.getElementById("login")
+
+
+loginBtn.addEventListener("click",function(event){
+
+event.preventDefault()
+var loginEmail = document.getElementById("registerEmail")
+var loginPass = document.getElementById("registerPassword")
+
+console.log(loginEmail.value,loginPass.value);
+
 })
