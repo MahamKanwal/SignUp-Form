@@ -1,5 +1,4 @@
-
-// // console.log(obj.name);
+ // console.log(obj.name);
 
 // localStorage.setItem("studentName","Tayyaba")
 
@@ -34,113 +33,167 @@
 
 // Taking data 
 
-var usersData = []
+// var usersData = []
 
-var registerBtn = document.getElementById("register");
-registerBtn && registerBtn.addEventListener("click", function () {
+// var registerBtn = document.getElementById("register");
+// registerBtn && registerBtn.addEventListener("click", function () {
 
-    var rName = document.getElementById("registerName")
-    var rEmail = document.getElementById("registerEmail")
-    var rPassword = document.getElementById("registerPass")
-
-
-
-    var userObj = {
-        name: rName.value,
-        email: rEmail.value,
-        password: rPassword.value
-    }
-    usersData.push(userObj)
+//     var rName = document.getElementById("registerName")
+//     var rEmail = document.getElementById("registerEmail")
+//     var rPassword = document.getElementById("registerPass")
 
 
-    rName.value = ""
-    rEmail.value = ""
-    rPassword.value = ""
 
-    console.log(usersData);
-    localStorage.setItem("users", JSON.stringify(usersData))
-    var fetchingData = JSON.parse(localStorage.getItem("users"));
-    fetchingData.push(userObj)
-
-
-   window.location.href = "login.html"
+//     var userObj = {
+//         name: rName.value,
+//         email: rEmail.value,
+//         password: rPassword.value
+//     }
+//     usersData.push(userObj)
 
 
-})
+//     rName.value = ""
+//     rEmail.value = ""
+//     rPassword.value = ""
+
+//     console.log(usersData);
+//     localStorage.setItem("users", JSON.stringify(usersData))
+//     var fetchingData = JSON.parse(localStorage.getItem("users"));
+//     fetchingData.push(userObj)
 
 
-var loginBtn = document.getElementById("login")
+//    window.location.href = "login.html"
+
+// })
 
 
-loginBtn && loginBtn.addEventListener("click", function (event) {
 
 
-    var loginEmail = document.getElementById("loginEmail")
-    var loginPass = document.getElementById("loginPassword")
+// var loginBtn = document.getElementById("login")
 
+
+// loginBtn && loginBtn.addEventListener("click", function (event) {
+
+
+//     var loginEmail = document.getElementById("loginEmail")
+//     var loginPass = document.getElementById("loginPassword")
+
+
+//     var users = JSON.parse(localStorage.getItem("users"));
+
+
+//     for (var user of users) {
+//         if (user.email == loginEmail.value) {
+
+//             if (user.password == loginPass.value) {
+//                 // console.log("login successfully");
+
+//                 Swal.fire({
+//                     title: "Login!",
+//                     text: "You Are Login Successfully",
+//                     imageUrl: "https://unsplash.it/400/200",
+//                     imageWidth: 400,
+//                     imageHeight: 200,
+//                     imageAlt: "Custom image"
+//                   });
+
+//             }
+
+//             else{
+//                 // console.log("email is ok but password is wrong");
+            
+//                 Swal.fire({
+//                     icon: "error",
+//                     title: "Oops...",
+//                     text: "Email Is Ok But Password Is Wrong!",
+//                   });
+
+//             }
+//         }
+    
+//     else{
+
+// if(loginPass.value == user.password){
+//     // console.log("password is ok but email is wrong");
+
+//     Swal.fire({
+//         icon: "error",
+//         title: "Oops...",
+//         text: "Password Is Ok But Email Is Wrong!",
+//       });
+
+
+// }
+
+//     }
+    
+//     }
+// }
+// )
+
+loginBtn && loginBtn.addEventListener("click", function () {
+    var loginEmail = document.getElementById("loginEmail");
+    var loginPass = document.getElementById("loginPassword");
 
     var users = JSON.parse(localStorage.getItem("users"));
 
+    if (!users) {
+        Swal.fire({
+            icon: "error",
+            title: "No Users",
+            text: "No registered users found",
+        });
+        return;
+    }
+
+    var userFound = false;
 
     for (var user of users) {
-        if (user.email == loginEmail.value) {
+        if (user.email === loginEmail.value) {
+            userFound = true;
 
-            if (user.password == loginPass.value) {
-                // console.log("login successfully");
+            if (user.password === loginPass.value) {
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
 
                 Swal.fire({
-                    title: "Login!",
-                    text: "You Are Login Successfully",
-                    imageUrl: "https://unsplash.it/400/200",
-                    imageWidth: 400,
-                    imageHeight: 200,
-                    imageAlt: "Custom image"
-                  });
-
-            }
-
-            else{
-                // console.log("email is ok but password is wrong");
-            
+                    title: "Login Successful!",
+                    text: "Welcome back!",
+                    icon: "success",
+                });
+                setTimeout(()=>{
+                    window.location.href = "login.html";    
+                    },3000)
+                
+                return;
+            } else {
                 Swal.fire({
                     icon: "error",
-                    title: "Oops...",
-                    text: "Email Is Ok But Password Is Wrong!",
-                  });
-
+                    title: "Wrong Password",
+                    text: "The password you entered is incorrect",
+                });
+                return;
             }
         }
-    
-    else{
-
-if(loginPass.value == user.password){
-    // console.log("password is ok but email is wrong");
-
-    Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Password Is Ok But Email Is Wrong!",
-      });
-
-
-}
-
     }
-    
+
+    if (!userFound) {
+        Swal.fire({
+            icon: "error",
+            title: "Email Not Found",
+            text: "No user registered with this email",
+        });
     }
-}
-)
+});
 
 
+// // var id = setInterval(function(){
 
-// var id = setInterval(function(){
+// //     console.log("hello")
 
-//     console.log("hello")
+// // },1000)
 
-// },1000)
+// // console.log(id);
 
-// console.log(id);
-
-// setTimeout(function(){
-//     clearInterval(id)
-// },5000)
+// // setTimeout(function(){
+// //     clearInterval(id)
+// // },5000)
